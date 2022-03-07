@@ -1,0 +1,4 @@
+git add -A
+git commit -m "nazwa commita"
+git push origin master (albo inny branch zamiast master)
+git pull

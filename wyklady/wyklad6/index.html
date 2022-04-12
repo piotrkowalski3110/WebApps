@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script type="module">
+    function onReady()
+    {
+        const mycanvas = document.getElementById("mycanvas"), aContext = mycanvas.getContext("2d");
+
+        aContext.fillStyle = "rgb(0, 0, 255)"
+            aContext.fillRect(10, 60, 150, 70)
+    }
+
+    document.addEventListener("DOMContentLoaded", onReady)
+</script>
+<body>
+    <canvas id="mycanvas" width="200px" height="200px", style="border: 1px solid black"> Nie wspiera canvas</canvas>
+</body>
+</html>

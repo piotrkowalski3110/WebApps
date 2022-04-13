@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<audio id="myAudio" controls="controls">
+    <source id="myAudioOgg" src="audio/song.ogg" type="audio/ogg"/>
+    <source id="myAudioMP3" src="audio/song.mp3" type="audio/mp3"/>
+    Browser doesn't support the audio element.
+</audio>
+
+<button id="mySong1">Song 1</button>
+<button id="mySong2">Song 2</button>
+
+<script type=""module>
+
+    const aAudio = document.getElementById("myAudio"),
+    aAudioOgg = document.getElementById("myAudioOgg"),
+    aAudioMP3 = document.getElementById("myAudioMP3"),
+
+function playsong(anIndex)
+{
+    switch(anIndex)
+    {
+        case 1:
+            myAudioOgg.src = "audio/song.ogg"
+            myAudioMP3.src = "audio/song.mp3"
+            break
+        case 2:
+            myAudioOgg.src = "audio/beat.ogg"
+            myAudioMP3.src = "audio/beat.mp3"
+            break
+        default:
+            console.log(`Invalid index=${anIndex}`)
+            return
+    }
+
+    aAudio.load()
+    aAudio.play()
+}
+
+document.getElementById("mySong1").addEventListener("click",() => playsong(1))
+document.getElementById("mySong2").addEventListener("click",() => playsong(2))
+
+</script>
+</body>
+</html>

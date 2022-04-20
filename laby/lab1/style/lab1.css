@@ -1,0 +1,25 @@
+div
+{
+    background-color: aquamarine;
+    width: 50px;
+    margin: 0 auto;
+    text-align-last: center;
+    transition:all .5s ease-in-out;
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -ms-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+}
+div.a
+{
+    background-color: blue;
+}
+div:hover
+{
+    background-color: red;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}

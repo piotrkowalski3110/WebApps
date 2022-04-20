@@ -1,5 +1,5 @@
 const aAudio = new Audio();
-aAudio =
+const avAudio =
 [
 ["audio/ogg", "audio/song.ogg"],
 ["audio/mpeg", "audio/song.mpeg"],
@@ -8,7 +8,7 @@ aAudio =
 ["audio/wav", "audio/song.wav"]
 ];
 
-for (let i = 0, n = aAudio.length; i<n; j++)
+for (let i = 0, n = avAudio.length; i<n; j++)
 {
     const astrResult = aAudio.canPLayType(avAudio[i][0])
 }

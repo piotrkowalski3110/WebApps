@@ -12,14 +12,18 @@
 }
 
 #calc>div {
-    background-color: #DEDEDE;
+    background-color: #FAFAFA;
     display: flex;
     align-items: center;
     justify-content: center;
     user-select: none;
 }
 
-#calc>div:hover{
+#calc>div:hover {
+    background-color: #DEDEDE;
+}
+
+#calc>div:active {
     background-color: gray;
 }
 

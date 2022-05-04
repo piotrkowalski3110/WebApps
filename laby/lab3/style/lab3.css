@@ -21,6 +21,7 @@
 }
 
 #calc>div:hover {
+    transition-duration: 0.5s;
     background-color: #DEDEDE;
 }
 
@@ -33,6 +34,7 @@ div#screen {
     justify-content: right;
     padding-right: 15px;
     font-size: 45px;
+    pointer-events: none;
 }
 
 .double {

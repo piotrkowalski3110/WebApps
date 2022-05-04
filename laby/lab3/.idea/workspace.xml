@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea29e730-ff20-4e1c-a2d1-cae99d17672f" name="Changes" comment="" />
+    <list default="true" id="ea29e730-ff20-4e1c-a2d1-cae99d17672f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/scripts/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,7 +26,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/piotrk/Pulpit/PaI/laby/lab3"
+    "last_opened_file_path": "/home/piotrk/Pulpit/webCV"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -36,6 +38,7 @@
       <option name="presentableId" value="Default" />
       <updated>1651666977167</updated>
       <workItem from="1651666979803" duration="17000" />
+      <workItem from="1651668385503" duration="10000" />
     </task>
     <servers />
   </component>

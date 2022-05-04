@@ -27,17 +27,86 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 */
 
+const buffer ={
+    value: 0,
+    op: 0//-1: odejmowanie, 1: dodawanie, 0:nic
+};
 
-function mouseClick(event) {
-    document.getElementById('screen').textContent += event.target.textContent;
+function MoveToBuffer(){
+    const screen = document.getElementById('screen');
+
+    switch(buffer.op)
+    {
+        case -1:
+            buffer.value -= parseFloat(screen.textContent);
+            break;
+        case 0:
+            buffer.value = parseFloat(screen.textContent);
+            break;
+        case 1:
+            buffer.value += parseFloat(screen.textContent);
+            break;
+    }
 }
 
-const init = event =>{
+function mouseClick(event) {
+    const key = event.target.textContent;
+    const screen = document.getElementById('screen');
+
+
+    switch(key)
+    {
+        case '+':
+            MoveToBuffer();
+            buffer.op = 1;
+            screen.textContent = '0';
+            break;
+
+        case '-':
+            MoveToBuffer();
+            buffer.op = -1;
+            screen.textContent = '0';
+            break;
+
+        case '=':
+            MoveToBuffer();
+            buffer.op = 0;
+            screen.textContent = buffer.value;
+            break;
+
+        case 'C':
+            screen.textContent = '0';
+            buffer.op = 0;
+            buffer.value = 0;
+            break;
+
+        case '.':
+            if(!screen.textContent.includes('.'))
+            {
+                screen.textContent += key;
+            }
+            break;
+
+        default:
+            if(screen.textContent === '0')
+            {
+                screen.textContent = key;
+            }
+            else
+            {
+                screen.textContent += key;
+            }
+            break;
+    }
+
+
+}
+
+const init = event => {
     const content = document.getElementById('calc');
     const buttons = content.children;
 
-    for(let i=0; i<buttons.length; ++i)
-    {
+    for (let i = 0; i < buttons.length; ++i) {
         buttons[i].addEventListener('click', mouseClick);
     }
 };

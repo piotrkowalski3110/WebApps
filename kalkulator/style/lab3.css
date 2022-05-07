@@ -1,3 +1,6 @@
+body{
+    background-color: darkslategrey;
+}
 #calc {
     border: 1px solid black;
     background-color: black;
@@ -13,7 +16,7 @@
 }
 
 #calc>div {
-    background-color: #FAFAFA;
+    background-color: orange;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,11 +25,11 @@
 
 #calc>div:hover {
     transition-duration: 0.5s;
-    background-color: #DEDEDE;
+    background-color: red;
 }
 
 #calc>div:active {
-    background-color: gray;
+    background-color: crimson;
 }
 
 div#screen {
@@ -35,6 +38,8 @@ div#screen {
     padding-right: 15px;
     font-size: 45px;
     pointer-events: none;
+    background-color: #FF6000;
+    border: 10px solid orange;
 }
 
 .double {

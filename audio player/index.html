@@ -3,10 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
-    <script src="./audio.js"></script>
+    <script src="./audio.js" type="module"></script>
     <title>Audio Player Piotr Kowalski</title>
 </head>
 <body>
-    
+    <h1>Piotr Kowalski - Player Audio</h1>
+    <audio id="myAudio">
+        <source src="audio/song.ogg" type="audio/ogg" />
+        <source src="audio/song.mp3" type="audio/mp3" />
+        Twoja przeglądarka nie obsługuje elementów audio!
+    </audio>
+
+    <button id="myPlay" class="pnp">Play</button>
+    <button id="myPause" class="pnp">Pause</button>
+    <button id="myRewind">Rewind</button>
+
+    <input type="range" id="myVolumeSlider" min="0" max="1" step="0.1" value="0.5">
+    <div class="makemargin">
+    <label class="container" for="myMute">Mute
+        <input type="checkbox" id="myMute" />
+        <span class="checkmark"></span>
+    </label>
+    <label class="container" for="myLoop">Loop
+        <input type="checkbox" id="myLoop" />
+        <span class="checkmark"></span>
+    </label>
+    </div>
+
+    <div id="myVolumeValue" class="makemargin">Current Volume: 50</div>
+    <div id="myCurrentTime">Current time:</div>
+
 </body>
 </html>

@@ -22,62 +22,67 @@ class Calc {
         });
     }
 
+    get screenValue(){
+        return parseFloat(this.screen.textContent);
+    }
+
+    set screenValue(value){
+        this.screen.textContent = value;
+    }
+
     mouseClick(event) {
         const key = event.target.textContent;
-        const screen = document.getElementById('screen');
         switch (key) {
             case '+':
                 this.MoveToBuffer();
                 this.opCode = 1;
-                screen.textContent = '0';
+                this.screen.textContent = '0';
                 break;
 
             case '-':
                 this.MoveToBuffer();
                 this.opCode = -1;
-                screen.textContent = '0';
+                this.screen.textContent = '0';
                 break;
 
             case '=':
                 this.MoveToBuffer();
                 this.opCode = 0;
-                screen.textContent = this.value;
+                this.screen.textContent = this.value;
                 break;
 
             case 'C':
-                screen.textContent = '0';
+                this.screen.textContent = '0';
                 this.opCode = 0;
                 this.value = 0;
                 break;
 
             case '.':
-                if (!screen.textContent.includes('.')) {
-                    screen.textContent += key;
+                if (!this.screen.textContent.includes('.')) {
+                    this.screen.textContent += key;
                 }
                 break;
 
             default:
-                if (screen.textContent === '0') {
-                    screen.textContent = key;
+                if (this.screen.textContent === '0') {
+                    this.screen.textContent = key;
                 } else {
-                    screen.textContent += key;
+                    this.screen.textContent += key;
                 }
                 break;
         }
     }
 
     MoveToBuffer() {
-        const screen = document.getElementById('screen');
-
         switch (this.opCode) {
             case -1:
-                this.value -= parseFloat(screen.textContent);
+                this.value -= this.screenValue;
                 break;
             case 0:
-                this.value = parseFloat(screen.textContent);
+                this.value = this.screenValue;
                 break;
             case 1:
-                this.value += parseFloat(screen.textContent);
+                this.value += this.screenValue;
                 break;
         }
     }

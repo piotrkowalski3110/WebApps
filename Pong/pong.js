@@ -43,6 +43,12 @@ class Pong {
         this.ctx = this.canvas.getContext('2d');
         this.width = width;
         this.height = height;
+        this.Player = new Player(15);
+
+        this.canvas.addEventListener('mousemove', e => {
+            this.player.y = e.offsetY;
+            this.draw();
+        });
     }
 
     init() {
@@ -52,7 +58,28 @@ class Pong {
 
     draw() {
         this.background.draw(this.ctx);
+        this.Player.draw(this.ctx, 100);
+        window.requestAnimationFrame(() => this.draw());
     }
+}
+
+class Player {
+    constructor(x) {
+        this.canvas = document.createElement('CANVAS');
+        this.canvas.setAttribute("width", 8);
+        this.canvas.setAttribute("height", 60);
+        this.x = x;
+
+        const ctx = this.canvas.getContext('2d');
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, 8, 60);
+    }
+
+    draw(ctx, y) {
+        ctx.drawImage(this.canvas, this.x, y)
+    }
+
+
 }
 
 const game = new Pong(800, 600);

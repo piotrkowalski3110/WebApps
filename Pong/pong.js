@@ -14,53 +14,53 @@ const CENTER_Y = Math.round((GAME_HEIGHT + MARGIN_TOP - MARGIN_BOTTOM) * 0.5);
 const BALL_SIZE = 12;
 
 class Ball {
-    constructor() {
+
+    constructor(x) {
         this.canvas = document.createElement('CANVAS');
-        this.canvas.setAttribute("width", BALL_SIZE);
-        this.canvas.setAttribute("height", BALL_SIZE);
-        this.x = CENTER_X - BALL_SIZE * 0.5;
-        this.y = CENTER_Y - BALL_SIZE * 0.5;
-        this.m = {x: -1, y: -1};
+        this.canvas.setAttribute("width", PLAYER_WIDTH);
+        this.canvas.setAttribute("height", PLAYER_HEIGHT);
+        const ctx = this.canvas.getContext('2d');
+        this.x = CENTER_X - PLAYER_WIDTH * 0.5;
+        this.y = CENTER_Y + PLAYER_HEIGHT * 0.25;
+        this.isMoving = false;
+        this.speed = 0;
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, BALL_SIZE, BALL_SIZE);
+        this.m = { x: -1, y: -1 };
         this.speed = 2;
         this.over = false;
 
-        const ctx = this.canvas.getContext('2d');
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, BALL_SIZE, BALL_SIZE);
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.canvas, this.x, this.y)
     }
 
     move(leftPlayerY, rightPlayerY) {
+
         if (this.y <= MOVE_MIN && this.m.y < 0) {
             this.m.y = 1;
         }
-        if (this.y >= (MOVE_MAX + PLAYER_HEIGHT - BALL_SIZE) && this.m.y > 0) {
-            this.m.y = -1;
-        }
-        if(!this.over && this.x <= (15+PLAYER_WIDTH) && this.m.x < 0){
-            if((this.y + BALL_SIZE) >= leftPlayerY && this.y <= (leftPlayerY + PLAYER_HEIGHT)){
-                this.m.x=1;
-            }
-            else {
+        if (!this.over && this.x <= (15 + PLAYER_WIDTH) && this.m.x < 0) {
+
+            if ((this.y + BALL_SIZE) >= leftPlayerY && this.y <= (leftPlayerY + PLAYER_HEIGHT)) {
+                this.m.x = 1;
+            } else {
                 this.over = true;
             }
+
         }
-        if (this.x <= 0 && this.m.x < 0) {
-            this.m.x = 1;
+
+        if (this.y >= (MOVE_MAX + PLAYER_HEIGHT - BALL_SIZE) && this.m.y > 0) {
+            this.m.y = -1;
         }
         if (this.x >= (GAME_WIDTH - BALL_SIZE) && this.m.x > 0) {
             this.m.x = -1;
         }
-        if(this.x <= 15 + PLAYER_WIDTH && this.m.x < 0)
-        {
-            this.m.x = 1;
-        }
 
         this.x += this.m.x * this.speed;
         this.y += this.m.y * this.speed;
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.canvas, this.x, this.y);
     }
 }
 

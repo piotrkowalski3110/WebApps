@@ -1,3 +1,8 @@
+//snake_case
+//camelCase
+//PascalCase - funkcje, klasy, itp.
+//SCREAM_CASE - constowe zmienne
+
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
 
@@ -20,16 +25,11 @@ class Ball {
         this.canvas.setAttribute("width", PLAYER_WIDTH);
         this.canvas.setAttribute("height", PLAYER_HEIGHT);
         const ctx = this.canvas.getContext('2d');
-        this.x = CENTER_X - PLAYER_WIDTH * 0.5;
-        this.y = CENTER_Y + PLAYER_HEIGHT * 0.25;
-        this.isMoving = false;
-        this.speed = 0;
 
         ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, BALL_SIZE, BALL_SIZE);
-        this.m = { x: -1, y: -1 };
-        this.speed = 2;
-        this.over = false;
+
+        this.reset();
 
     }
 
@@ -42,6 +42,7 @@ class Ball {
 
             if ((this.y + BALL_SIZE) >= leftPlayerY && this.y <= (leftPlayerY + PLAYER_HEIGHT)) {
                 this.m.x = 1;
+                ++this.speed;
             } else {
                 this.over = true;
             }
@@ -61,6 +62,18 @@ class Ball {
 
     draw(ctx) {
         ctx.drawImage(this.canvas, this.x, this.y);
+    }
+
+    reset() {
+        this.x = CENTER_X - PLAYER_WIDTH * 0.5;
+        this.y = CENTER_Y + PLAYER_HEIGHT * 0.25;
+        this.over = false;
+        this.m = {x: this.generate(), y: this.generate()};
+        this.speed = 2;
+    }
+
+    generate(){
+        return Math.round(Math.random()) > 0 ? 1 : -1
     }
 }
 
@@ -110,6 +123,7 @@ class Pong {
         this.ctx = this.canvas.getContext('2d');
         this.width = width;
         this.height = height;
+        this.started = false;
 
         this.playerA = new Player(15, this.ctx);
         this.playerB = new Player(785 - PLAYER_WIDTH, this.ctx);
@@ -130,10 +144,23 @@ class Pong {
 
     draw() {
         this.background.draw(this.ctx);
+        this.ctx.fillStyle = "white";
+        this.ctx.font = "normal 26px sans-serif";
+        this.ctx.fillText(`Player A: ${this.playerA.points}`, 30, 26);
+        this.ctx.fillText(`Player B: ${this.playerB.points}`, 645, 26);
         this.playerA.draw(this.ctx, 100);
         this.playerB.draw(this.ctx, 100);
         this.ball.draw(this.ctx);
-        this.ball.move(this.playerA.y);
+
+        if (this.started) {
+            this.ball.move(this.playerA.y);
+            if (this.ball.over) {
+                this.started = false;
+                this.ball.reset();
+                this.playerA.points++;
+            }
+        }
+
         window.requestAnimationFrame(() => this.draw());
     }
 
@@ -142,6 +169,9 @@ class Pong {
         const keyPressed = state === 'down';
 
         switch (event.code) {
+            case 'Space':
+                this.started = true;
+                break;
             case 'KeyW':
                 keyPressed ? this.playerA.moveUp() : this.playerA.stop();
                 break;
@@ -168,6 +198,7 @@ class Player {
         this.isMoving = false;
         this.speed = 0;
         this.parentCTX = parentCTX;
+        this.points = 0;
 
         const ctx = this.canvas.getContext('2d');
         ctx.fillStyle = "white";
@@ -201,14 +232,14 @@ class Player {
 
     moveDown() {
         if (this.isMoving) return;
-        this.speed = 8;
+        this.speed = 16;
         this.isMoving = true;
         this.move();
     }
 
     moveUp() {
         if (this.isMoving) return;
-        this.speed = -8;
+        this.speed = -16;
         this.isMoving = true;
         this.move();
     }

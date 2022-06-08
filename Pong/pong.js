@@ -18,6 +18,8 @@ const CENTER_X = GAME_WIDTH * 0.5;
 const CENTER_Y = Math.round((GAME_HEIGHT + MARGIN_TOP - MARGIN_BOTTOM) * 0.5);
 const BALL_SIZE = 12;
 
+const deg2rad = deg => deg * Math.PI / 180;
+
 class Ball {
 
     constructor(x) {
@@ -36,13 +38,14 @@ class Ball {
     move(leftPlayerY, rightPlayerY) {
 
         if (this.y <= MOVE_MIN && this.m.y < 0) {
-            this.m.y = 1;
+            this.m.y = -this.m.y;
+            this.speed += 0.1;
         }
         if (!this.over && this.x <= (15 + PLAYER_WIDTH) && this.m.x < 0) {
 
             if ((this.y + BALL_SIZE) >= leftPlayerY && this.y <= (leftPlayerY + PLAYER_HEIGHT)) {
-                this.m.x = 1;
-                ++this.speed;
+                this.m.x = -this.m.y;
+                this.speed += 0.1;
             } else {
                 this.over = true;
             }
@@ -65,15 +68,26 @@ class Ball {
     }
 
     reset() {
+        const randomData = this.generate();
+
         this.x = CENTER_X - PLAYER_WIDTH * 0.5;
         this.y = CENTER_Y + PLAYER_HEIGHT * 0.25;
         this.over = false;
-        this.m = {x: this.generate(), y: this.generate()};
+        this.m = {
+            x: Math.cos(deg2rad(randomData.angle)) * randomData.dir.x,
+            y: Math.sin(deg2rad(randomData.angle)) * randomData.dir.y
+        };
         this.speed = 2;
     }
 
-    generate(){
-        return Math.round(Math.random()) > 0 ? 1 : -1
+    generate() {
+        return {
+            angle: Math.round(Math.random() * 30 + 30),
+            dir: {
+                x: Math.round(Math.random()) > 0 ? 1 : -1,
+                y: Math.round(Math.random()) > 0 ? 1 : -1
+            }
+        };
     }
 }
 
@@ -145,9 +159,9 @@ class Pong {
     draw() {
         this.background.draw(this.ctx);
         this.ctx.fillStyle = "white";
-        this.ctx.font = "normal 26px sans-serif";
-        this.ctx.fillText(`Player A: ${this.playerA.points}`, 30, 26);
-        this.ctx.fillText(`Player B: ${this.playerB.points}`, 645, 26);
+        this.ctx.font = "normal 26px Nova Square";
+        this.ctx.fillText(`Player A: ${this.playerA.points}`, 30, 30);
+        this.ctx.fillText(`Player B: ${this.playerB.points}`, 635, 30);
         this.playerA.draw(this.ctx, 100);
         this.playerB.draw(this.ctx, 100);
         this.ball.draw(this.ctx);
@@ -157,7 +171,7 @@ class Pong {
             if (this.ball.over) {
                 this.started = false;
                 this.ball.reset();
-                this.playerA.points++;
+                this.playerB.addPoints();
             }
         }
 
@@ -203,6 +217,26 @@ class Player {
         const ctx = this.canvas.getContext('2d');
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
+    }
+
+    addPoints() {
+        switch (this.points){
+            case 0:
+                this.points = 15;
+                break;
+
+            case 15:
+                this.points = 30;
+                break;
+
+            case 30:
+                this.points = 40;
+                break;
+
+            case 40:
+                this.points = 0;
+                break;
+        }
     }
 
     draw() {

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/PaI PHP.iml" filepath="$PROJECT_DIR$/.idea/PaI PHP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WebGL.iml" filepath="$PROJECT_DIR$/WebGL.iml" />
     </modules>
   </component>
 </project>

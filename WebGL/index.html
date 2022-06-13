@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script type="text/javascript" src="webgl-debug.js"></script>
+    <script type="text/javascript" src="./webgl-debug.js"></script>
     <title>WebGL Piotr Kowalski</title>
 
     <style>
@@ -23,7 +23,7 @@
     </style>
 
     <script type="module">
-        import rmaes from "./rmaes.webgl"
+        import rmaes from "./rmaes.webgl.js"
 
         const astrVertexShader =
             'attribute vec4 a_Position;\n' +
@@ -44,43 +44,45 @@
             const aCanvas = document.getElementById("canvas"),
                 gl = rmaes.webgl.getGL(aCanvas, true);
 
-            if(!gl){
-                console.error('Failer to get the rendering context for WebGL');
+            if (!gl) {
+                console.error('Failed to get the rendering context for WebGL');
                 return
             }
 
             const aProgram = rmaes.webgl.initShadersAndMakeCurrent(gl, astrVertexShader, astrFragmentShader),
                 a_Position = gl.getAttribLocation(aProgram, 'a_Position');
 
-            if(0 > a_Position){
+            if (0 > a_Position) {
                 console.error('Failed to get the storage location of a_Position');
                 return
             }
 
             const a_PointSize = gl.getAttribLocation(aProgram, 'a_PointSize');
 
-            if(0>a_PointSize){
+            if (0 > a_PointSize) {
                 console.error('Failed to get the storage location of a_PointSize');
             }
 
             const u_FragColor = gl.getUniformLocation(aProgram, 'u_FragColor');
 
-            if(!u_FragColor){
+            if (!u_FragColor) {
                 console.error('Failed to het the storage location of u_FragColor');
                 return
             }
 
-            gl.vertexAttrib3f(a_Position, 0.5, 0.0, 0.0);
-            gl.vertexAttrib1f(a_PointSize, 15.0);
-            gl.uniform4f(u_FragColor, 0.0, 1.0, 0.0, 1.0);
             gl.clearColor(0.0, 0.0, 0.0, 1.0);
             gl.clear(gl.COLOR_BUFFER_BIT);
-            gl.drawArrays(gl.POINTS, 0 ,1);
+            gl.uniform4f(u_FragColor, 1.0, 0.2, 1.0, 1.0);
+
+
+            gl.vertexAttrib3f(a_Position, -0.25, 0.0, 0.0);
+            gl.vertexAttrib1f(a_PointSize, 20.0);
+            gl.drawArrays(gl.POINTS, 0, 10);
         }
     </script>
 
 </head>
 <body>
-    <canvas id="canvas" width="500" height="500"> Przeglądarka nie wspiera canvas! </canvas>
+<canvas id="canvas" width="500" height="500"> Przeglądarka nie wspiera canvas!</canvas>
 </body>
 </html>
